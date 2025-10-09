@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.22)
 
 # set default version if building locally
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
