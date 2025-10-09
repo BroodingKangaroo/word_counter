@@ -21,27 +21,26 @@ jobs:
         run: cmake --build build
 
       - name: Run Tests
-        # Use the 'test' target which is automatically created by enable_testing()
         run: cmake --build build --target test
 
       - name: Create Package
-        # Run the 'package' target which is created by include(CPack)
         run: cmake --build build --target package
 
       - name: Upload Debian Package Artifact
-        uses: actions/upload-artifact@v3
+        # This is the updated version for uploading
+        uses: actions/upload-artifact@v4 # <-- UPDATED
         with:
           name: debian_package
           path: build/word-counter-0.0.${{ github.run_number }}-Linux.deb
 
   release:
     needs: build
-    # This job only runs if the commit message contains the string "--release"
     if: contains(github.event.head_commit.message, '--release')
     runs-on: ubuntu-latest
     steps:
       - name: Download Debian package from build job
-        uses: actions/download-artifact@v3
+        # This is the updated version for downloading
+        uses: actions/download-artifact@v4 # <-- UPDATED
         with:
           name: debian_package
 
