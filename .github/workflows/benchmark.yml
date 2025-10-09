@@ -1,0 +1,36 @@
+name: Run and Publish Benchmarks
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Tools (hyperfine and jq)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y hyperfine jq
+
+      - name: Run benchmark script
+        run: |
+          cd benchmarks
+          ./run_benchmark.sh
+
+      - name: Store and Publish Benchmark Results
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: Word Counter Benchmark (Time)
+          tool: 'customSmallerIsBetter'
+          output-file-path: benchmarks/benchmark_custom.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true

@@ -1,0 +1,7 @@
+[
+  {
+    "name": "'../build/benchmarks/word_counter_bench' 'enwiki-multistream.xml' 'output.txt'",
+    "unit": "s",
+    "value": 72.21194755984001
+  }
+]
