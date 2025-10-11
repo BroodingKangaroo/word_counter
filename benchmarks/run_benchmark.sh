@@ -7,10 +7,10 @@ set -e
 
 if [[ "$CI" == "true" ]]; then
   echo "--- CI environment detected. Using full dataset. ---"
-  DATA_URL="https://dumps.wikimedia.org/enwikinews/20251001/enwikinews-20251001-pages-articles-multistream.xml.bz2"
+  DATA_URL="https://dumps.wikimedia.org/enwiktionary/20251001/enwiktionary-20251001-pages-articles-multistream.xml.bz2"
 else
   echo "--- Local environment detected. Using smaller dataset. ---"
-  DATA_URL="https://dumps.wikimedia.org/enwikinews/20251001/enwikinews-20251001-pages-articles-multistream1.xml-p1500001p3000000.bz2"
+  DATA_URL="https://dumps.wikimedia.org/enwiktionary/20251001/enwiktionary-20251001-pages-articles-multistream1.xml-p10500001p11216882.bz2"
 fi
 
 
@@ -23,8 +23,8 @@ echo "Benchmark target set to: '$BENCHMARK_NAME'"
 # --- END CONSTRUCTION ---
 
 
-COMPRESSED_DATA_FILE="enwiki-multistream.xml.bz2"
-UNCOMPRESSED_DATA_FILE="enwiki-multistream.xml"
+COMPRESSED_DATA_FILE="enwiktionary-multistream.xml.bz2"
+UNCOMPRESSED_DATA_FILE="enwiktionary-multistream.xml"
 BUILD_DIR="../build"
 BENCH_EXE="$BUILD_DIR/benchmarks/word_counter_bench"
 HYPERFINE_RESULTS="benchmark_results.json"
