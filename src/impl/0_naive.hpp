@@ -16,6 +16,7 @@ struct NaiveWordCounter : public IWordCounter {
         }
 
         std::unordered_map<std::string, int> counts;
+        counts.max_load_factor(0.3);
         std::string current_word;
         char c;
 
