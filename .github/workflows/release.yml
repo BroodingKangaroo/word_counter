@@ -27,11 +27,10 @@ jobs:
         run: cmake --build build --target package
 
       - name: Upload Debian Package Artifact
-        # This is the updated version for uploading
-        uses: actions/upload-artifact@v4 # <-- UPDATED
+        uses: actions/upload-artifact@v4
         with:
           name: debian_package
-          path: build/word-counter-0.0.${{ github.run_number }}-Linux.deb
+          path: ./word-counter-0.0.${{ github.run_number }}-Linux.deb
 
   release:
     needs: build
@@ -39,8 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Debian package from build job
-        # This is the updated version for downloading
-        uses: actions/download-artifact@v4 # <-- UPDATED
+        uses: actions/download-artifact@v4
         with:
           name: debian_package
 
