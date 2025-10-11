@@ -1,3 +1,3 @@
-add_library(naive_impl INTERFACE)
-target_link_libraries(naive_impl INTERFACE word_counter_interface)
-target_include_directories(naive_impl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(word_counter_impl INTERFACE)
+target_link_libraries(word_counter_impl INTERFACE word_counter_interface)
+target_include_directories(word_counter_impl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

@@ -8,6 +8,8 @@ project(word_counter VERSION ${PROJECT_VERSION})
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -g")
+
 include(FetchContent)
 
 FetchContent_Declare(

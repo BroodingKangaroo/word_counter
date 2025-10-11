@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include "impl/naive.hpp"
+#include "impl/0_naive.hpp"
 
 template <typename T>
 class WordCounterTest : public ::testing::Test {

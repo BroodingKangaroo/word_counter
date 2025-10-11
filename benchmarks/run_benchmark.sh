@@ -8,6 +8,8 @@ set -e
 # This is a more stable URL for a recent Wikipedia dump. It is compressed.
 #DATA_URL="https://dumps.wikimedia.org/enwikinews/20251001/enwikinews-20251001-pages-articles-multistream.xml.bz2"
 DATA_URL="https://dumps.wikimedia.your.org/huwiki/20220520/huwiki-20220520-pages-meta-current.xml.bz2"
+# For local debug
+#DATA_URL="https://dumps.wikimedia.org/enwikinews/20251001/enwikinews-20251001-pages-articles-multistream1.xml-p1500001p3000000.bz2"
 
 # The name of the compressed file we will download.
 COMPRESSED_DATA_FILE="enwiki-multistream.xml.bz2"
@@ -50,7 +52,7 @@ echo -e "\n--- Running Benchmark using hyperfine ---"
 OUTPUT_FILE="output.txt"
 
 # The command now uses the uncompressed data file as input.
-hyperfine --warmup 1\
+hyperfine --warmup 5 \
   --export-json "$HYPERFINE_RESULTS" \
   "'$BENCH_EXE' '$UNCOMPRESSED_DATA_FILE' '$OUTPUT_FILE'"
 
