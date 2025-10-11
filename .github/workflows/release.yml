@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: debian_package
-          path: ./word-counter-0.0.${{ github.run_number }}-Linux.deb
+          path: build/*.deb
 
   release:
     needs: build
