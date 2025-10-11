@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   benchmark:
+    if: "!startsWith(github.event.head_commit.message, 'Infra:')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
