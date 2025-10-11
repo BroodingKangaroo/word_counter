@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760219759431,
+  "lastUpdate": 1760219883974,
   "repoUrl": "https://github.com/BroodingKangaroo/word_counter",
   "entries": {
     "Word Counter Benchmark (Time)": [
@@ -57,6 +57,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Naive Word Counter Implementation (Time)",
             "value": 246.32,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "35418986+BroodingKangaroo@users.noreply.github.com",
+            "name": "Maksim Halavaty",
+            "username": "BroodingKangaroo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "160bcbed73733fb2f432d852c65ed2a915e3df82",
+          "message": "Infra: Fix release --release\n\n* Infra: Fix release.\n\n* Infra: Fix release.",
+          "timestamp": "2025-10-11T23:57:14+03:00",
+          "tree_id": "0b76abe09fe64035b0aec485acedde709f3173d2",
+          "url": "https://github.com/BroodingKangaroo/word_counter/commit/160bcbed73733fb2f432d852c65ed2a915e3df82"
+        },
+        "date": 1760219883649,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Naive Word Counter Implementation (Time)",
+            "value": 239.78,
             "unit": "s"
           }
         ]
