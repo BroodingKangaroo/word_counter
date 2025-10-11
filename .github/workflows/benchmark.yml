@@ -33,4 +33,5 @@ jobs:
           tool: 'customSmallerIsBetter'
           output-file-path: benchmarks/benchmark_custom.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          benchmark-data-dir-path: ''
           auto-push: true
