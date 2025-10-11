@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include "impl/0_naive.hpp"
+#include "impl/1_buffered.h"
 
 template <typename T>
 class WordCounterTest : public ::testing::Test {
@@ -129,5 +130,5 @@ REGISTER_TYPED_TEST_SUITE_P(WordCounterTest,
                            HandlesEmptyInput);
 
 // New implementations should be added here
-using Implementations = ::testing::Types<NaiveWordCounter>;
+using Implementations = ::testing::Types<NaiveWordCounter, BufferedWordCounter>;
 INSTANTIATE_TYPED_TEST_SUITE_P(MyImplementations, WordCounterTest, Implementations);

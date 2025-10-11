@@ -3,8 +3,9 @@
 #include <string>
 
 #include "impl/0_naive.hpp"
+#include "impl/1_buffered.h"
 
-using BenchmarkTarget = NaiveWordCounter;
+using BenchmarkTarget = BufferedWordCounter;
 
 int main(const int argc, char* argv[]) {
     if (argc != 3) {
