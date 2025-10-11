@@ -3,7 +3,6 @@
 #include <string>
 
 #include "impl/0_naive.hpp"
-#include "impl/1_buffered.h"
 
 using BenchmarkTarget = NaiveWordCounter;
 
