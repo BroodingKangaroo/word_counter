@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 
-#include "impl/naive.hpp"
+#include "impl/0_naive.hpp"
 
 using BenchmarkTarget = NaiveWordCounter;
 

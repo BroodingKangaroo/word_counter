@@ -4,7 +4,7 @@ target_link_libraries(
         run_tests
         PRIVATE
             GTest::gtest_main
-            naive_impl
+            word_counter_impl
 )
 
 include(GoogleTest)
