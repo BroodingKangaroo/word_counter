@@ -7,6 +7,7 @@
 
 #include "word_counter.hpp"
 
+template <size_t BufferSize = 4096>
 struct BufferedWordCounter : public IWordCounter {
     void count_words(const std::string &input_filename, const std::string &output_filename) override {
         std::ifstream file(input_filename);
@@ -20,10 +21,9 @@ struct BufferedWordCounter : public IWordCounter {
 
         // -- now reading in chunks of size 4kb (likely the size of a memory page)
         // -- even though the performance starts to decrease at about 100b and lower
-        constexpr size_t buffer_size = 4096;
-        std::vector<char> buffer(buffer_size);
+        std::vector<char> buffer(BufferSize);
 
-        while (file.read(buffer.data(), buffer_size) || file.gcount() > 0) {
+        while (file.read(buffer.data(), BufferSize) || file.gcount() > 0) {
             for (size_t i = 0; i < file.gcount(); ++i) {
                 if (std::isalpha(static_cast<unsigned char>(buffer[i]))) {
                     current_word += std::tolower(static_cast<unsigned char>(buffer[i]));
