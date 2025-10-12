@@ -14,15 +14,7 @@ else
 fi
 
 
-# --- AUTOMATIC BENCHMARK NAME CONSTRUCTION ---
-echo "--- Discovering benchmark target from main.cpp ---"
-IMPL_CLASS_NAME=$(grep "using BenchmarkTarget" main.cpp | sed 's/.*= *//;s/;//')
-IMPL_BASE_NAME=$(echo "$IMPL_CLASS_NAME" | sed 's/WordCounter//')
-BENCHMARK_NAME="$IMPL_BASE_NAME Word Counter Implementation (Time)"
-echo "Benchmark target set to: '$BENCHMARK_NAME'"
-# --- END CONSTRUCTION ---
-
-
+BENCHMARK_NAME="Word Counter Implementation (Time, s)"
 COMPRESSED_DATA_FILE="enwiktionary-multistream.xml.bz2"
 UNCOMPRESSED_DATA_FILE="enwiktionary-multistream.xml"
 BUILD_DIR="../build"
