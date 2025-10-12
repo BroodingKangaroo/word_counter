@@ -7,7 +7,8 @@
 #include <sstream>
 
 #include "impl/0_naive.hpp"
-#include "impl/1_buffered.h"
+#include "impl/1_buffered.hpp"
+#include "impl/2_trie.hpp"
 
 template <typename T>
 class WordCounterTest : public ::testing::Test {
@@ -123,12 +124,30 @@ TYPED_TEST_P(WordCounterTest, HandlesEmptyInput) {
     ASSERT_TRUE(result.empty());
 }
 
+TYPED_TEST_P(WordCounterTest, HandlesCrossBufferWords) {
+    // Given
+    this->WriteInputFile("somel123123anothersomelongword123!!23somel31 23anothersomelongword");
+
+    // When
+    this->word_counter_->count_words(this->temp_input_filename_, this->temp_output_filename_);
+
+    // Then
+    auto result = this->ReadOutputFile();
+    std::vector<std::pair<int, std::string>> expected = {
+        {2, "anothersomelongword"},
+        {2, "somel"},
+    };
+
+    ASSERT_EQ(result, expected);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(WordCounterTest,
                            CountsSimpleWords,
                            HandlesComplexSeparatorsAndPunctuation,
                            HandlesExample,
-                           HandlesEmptyInput);
+                           HandlesEmptyInput,
+                           HandlesCrossBufferWords);
 
 // New implementations should be added here
-using Implementations = ::testing::Types<NaiveWordCounter, BufferedWordCounter>;
+using Implementations = ::testing::Types<NaiveWordCounter, BufferedWordCounter<2>, TrieWordCounter<5>>;
 INSTANTIATE_TYPED_TEST_SUITE_P(MyImplementations, WordCounterTest, Implementations);
