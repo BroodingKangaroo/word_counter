@@ -21,7 +21,7 @@ Boosts the overall program performance by approximately **2x** compared to the n
 ### 3. Trie-Based Implementation
 
 This version replaces the `std::unordered_map` with [Trie](https://en.wikipedia.org/wiki/Trie) data structure.
-This approach improves performance by approximately **70%** over the Buffered implementation. However, the result doesn't persist across different platforms
+This approach improves performance on Mac (M4) by approximately **70%** over the Buffered implementation. However, the result doesn't persist across different platforms
 with Ubuntu showing even a slightly worse performance then the Buffered implementation.
 
 - The initial implementation relied on dynamic allocations of each individual TrieNode which killed the performance. To counter it the segmented memory pool was introduced (`std::deque<std::vector<TrieNode>>`). Allocating a giant vector upfront doesn't work because of the potential reallocation and reference invalidation.
