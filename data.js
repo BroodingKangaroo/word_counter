@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760296658416,
+  "lastUpdate": 1760304974280,
   "repoUrl": "https://github.com/BroodingKangaroo/word_counter",
   "entries": {
     "Word Counter Benchmark (Time)": [
@@ -144,6 +144,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Word Counter Implementation (Time, s)",
             "value": 148.06,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "35418986+BroodingKangaroo@users.noreply.github.com",
+            "name": "Maksim Halavaty",
+            "username": "BroodingKangaroo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "034c8ed06d7e3a56324ae629b4ac0a0eb9c1036e",
+          "message": "Trie: add march native",
+          "timestamp": "2025-10-12T23:57:32+03:00",
+          "tree_id": "b4fc0cd1181e1aad22c66d78f09f8c26b9e6cc07",
+          "url": "https://github.com/BroodingKangaroo/word_counter/commit/034c8ed06d7e3a56324ae629b4ac0a0eb9c1036e"
+        },
+        "date": 1760304973717,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Word Counter Implementation (Time, s)",
+            "value": 139.67,
             "unit": "s"
           }
         ]
