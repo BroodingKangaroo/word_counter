@@ -26,7 +26,7 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Naive Word Counter Implementation (Time)",
+            "name": "Word Counter Implementation (Time, s)",
             "value": 239.66,
             "unit": "s"
           }
@@ -55,7 +55,7 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Naive Word Counter Implementation (Time)",
+            "name": "Word Counter Implementation (Time, s)",
             "value": 221.28,
             "unit": "s"
           }
@@ -84,7 +84,7 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Buffered Word Counter Implementation (Time)",
+            "name": "Word Counter Implementation (Time, s)",
             "value": 132.89,
             "unit": "s"
           }
