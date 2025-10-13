@@ -5,8 +5,9 @@
 #include "impl/0_naive.hpp"
 #include "impl/1_buffered.hpp"
 #include "impl/2_trie.hpp"
+#include "impl/3_mmap.hpp"
 
-using BenchmarkTarget = trie::TrieWordCounter<>;
+using BenchmarkTarget = mmap_impl::MmapWordCounter;
 
 int main(const int argc, char* argv[]) {
     if (argc != 3) {

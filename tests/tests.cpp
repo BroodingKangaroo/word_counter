@@ -9,6 +9,7 @@
 #include "impl/0_naive.hpp"
 #include "impl/1_buffered.hpp"
 #include "impl/2_trie.hpp"
+#include "impl/3_mmap.hpp"
 
 template <typename T>
 class WordCounterTest : public ::testing::Test {
@@ -152,5 +153,7 @@ REGISTER_TYPED_TEST_SUITE_P(WordCounterTest,
 using Implementations = ::testing::Types<
     naive::NaiveWordCounter,
     buffered::BufferedWordCounter<2>,
-    trie::TrieWordCounter<2>>;
+    trie::TrieWordCounter<2>,
+    mmap_impl::MmapWordCounter
+>;
 INSTANTIATE_TYPED_TEST_SUITE_P(MyImplementations, WordCounterTest, Implementations);
