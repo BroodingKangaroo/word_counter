@@ -1,4 +1,4 @@
-### Word counter
+## Word counter
 
 Interactive performance graph of every push to main
 https://broodingkangaroo.github.io/word_counter/
@@ -37,10 +37,18 @@ so that kernel expects page references in sequential order. (Hence, pages
 in the given range can be aggressively read ahead, and may
 be freed soon after they are accessed.)
 
-### 5. Robin Map
+### 5. Robin Map Implementation
 
 This version replaces `std::unordered_map` with the more cache-friendly [tsl::robin_map](https://github.com/Tessil/robin-map/tree/master).
 
 - `std::unordered_map` typically uses separate chaining, which stores elements in linked lists. Accessing these elements can lead to pointer chasing and frequent cache misses. `tsl::robin_map` uses open addressing, storing all elements in a single, contiguous array. This improves cache locality, as iterating through buckets or resolving collisions often means accessing memory that is already in the CPU cache.
 - A `stack_buffer` optimisation helps counter the repeated heap allocation and copying of `std::string` keys for every word. Short words are converted to lowercase in a small, stack-allocated buffer, and a `std::string_view` of this buffer is used for map lookups. This completely avoids heap allocations for the majority of words.
 - Experiments with faster hashing algorithms like `xxh3` showed no performance gains.
+
+### 6. Parallel Implementation
+
+This version introduces multi-threading to use all available CPU cores.
+
+-   The memory-mapped file is divided into N chunks, where N is the number of available hardware cores. `std::async` is used to launch N concurrent tasks (in separate threads), with each task being responsible for counting the words in its assigned chunk. The results are aggregated into a final map after the completion of all threads.
+-   The final sorting of unique words is also parallelized. On macOS it falls back to Intel's `oneDPL` since macOS's stl does not support parallel algorithms.
+-   To reduce the number of expensive system calls the output is written to the final file in large chunks.

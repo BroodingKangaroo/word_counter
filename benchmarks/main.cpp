@@ -7,8 +7,9 @@
 #include "impl/2_trie.hpp"
 #include "impl/3_mmap.hpp"
 #include "impl/4_robin_map.hpp"
+#include "impl/5_parallel.hpp"
 
-using BenchmarkTarget = robin_map::RobinMapWordCounter;
+using BenchmarkTarget = parallel::ParallelWordCounter;
 
 int main(const int argc, char* argv[]) {
     if (argc != 3) {
