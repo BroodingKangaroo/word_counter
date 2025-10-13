@@ -22,7 +22,7 @@ Boosts the overall program performance by approximately **2x** compared to the n
 
 This version replaces the `std::unordered_map` with a [Trie](https://en.wikipedia.org/wiki/Trie) data structure.
 This approach improves performance on Mac (M4) by approximately **70%** over the Buffered implementation. However, the result doesn't persist across different platforms
-with Ubuntu showing even a slightly worse performance then the Buffered implementation.
+with Ubuntu showing even a slightly worse performance than the Buffered implementation.
 
 - The initial implementation relied on dynamic allocations of each individual TrieNode which killed the performance. To counter it the segmented memory pool was introduced (`std::deque<std::vector<TrieNode>>`). Allocating a giant vector upfront doesn't work because of the potential reallocation and reference invalidation.
 - The expensive character-by-character `std::string` creation (`current_word += ...`) was eliminated. Instead, words are identified by raw pointers (`buffer_pointer`, `buffer_end`) directly within the I/O buffer. This avoids unnecessary heap reallocations. However, this increases the complexity since now cross-buffer words need be correctly processed.
@@ -31,9 +31,16 @@ with Ubuntu showing even a slightly worse performance then the Buffered implemen
 ### 4. Memory-Mapped I/O Implementation
 
 This version replaces the buffered approach with memory-mapped I/O using `boost::iostreams::mapped_file`.
-This results in a significant performance **increase** of about **100%**.
 `madvise` system call was also added to give advice to
 the kernel about the address range beginning and its size. `MADV_SEQUENTIAL` was used
-so that kernel expects page references in sequential order.  (Hence, pages
+so that kernel expects page references in sequential order. (Hence, pages
 in the given range can be aggressively read ahead, and may
 be freed soon after they are accessed.)
+
+### 5. Robin Map
+
+This version replaces `std::unordered_map` with the more cache-friendly [tsl::robin_map](https://github.com/Tessil/robin-map/tree/master).
+
+- `std::unordered_map` typically uses separate chaining, which stores elements in linked lists. Accessing these elements can lead to pointer chasing and frequent cache misses. `tsl::robin_map` uses open addressing, storing all elements in a single, contiguous array. This improves cache locality, as iterating through buckets or resolving collisions often means accessing memory that is already in the CPU cache.
+- A `stack_buffer` optimisation helps counter the repeated heap allocation and copying of `std::string` keys for every word. Short words are converted to lowercase in a small, stack-allocated buffer, and a `std::string_view` of this buffer is used for map lookups. This completely avoids heap allocations for the majority of words.
+- Experiments with faster hashing algorithms like `xxh3` showed no performance gains.
