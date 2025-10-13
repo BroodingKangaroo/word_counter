@@ -17,10 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Tools (hyperfine and jq)
+      - name: Install Tools (hyperfine, jq and boost)
         run: |
           sudo apt-get update
-          sudo apt-get install -y hyperfine jq
+          sudo apt-get install -y hyperfine jq libboost-all-dev
 
       - name: Run benchmark script
         run: |
