@@ -11,6 +11,7 @@
 #include "impl/2_trie.hpp"
 #include "impl/3_mmap.hpp"
 #include "impl/4_robin_map.hpp"
+#include "impl/5_parallel.hpp"
 
 template <typename T>
 class WordCounterTest : public ::testing::Test {
@@ -156,6 +157,7 @@ using Implementations = ::testing::Types<
     buffered::BufferedWordCounter<2>,
     trie::TrieWordCounter<2>,
     mmap_impl::MmapWordCounter,
-    robin_map::RobinMapWordCounter
+    robin_map::RobinMapWordCounter,
+    parallel::ParallelWordCounter
 >;
 INSTANTIATE_TYPED_TEST_SUITE_P(MyImplementations, WordCounterTest, Implementations);

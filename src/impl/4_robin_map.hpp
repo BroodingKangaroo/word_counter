@@ -126,4 +126,4 @@ struct RobinMapWordCounter : public IWordCounter {
         }
     }
 };
-} // namespace robin_map
+}
