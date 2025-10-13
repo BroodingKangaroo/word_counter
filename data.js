@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760379398549,
+  "lastUpdate": 1760383949294,
   "repoUrl": "https://github.com/BroodingKangaroo/word_counter",
   "entries": {
     "Word Counter Benchmark (Time)": [
@@ -202,6 +202,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Word Counter Implementation (Time, s)",
             "value": 119.7,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "35418986+BroodingKangaroo@users.noreply.github.com",
+            "name": "Maksim Halavaty",
+            "username": "BroodingKangaroo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "226b421707b524d91c7673256b18ea07639714d7",
+          "message": "RobinMap: init impl\n\n* RobinMap: init impl\n\n* RobinMap: update README.md\n\n* RobinMap: add license",
+          "timestamp": "2025-10-13T22:05:07+03:00",
+          "tree_id": "bc35f4cf8959651c8518e87da810cb4c495bb693",
+          "url": "https://github.com/BroodingKangaroo/word_counter/commit/226b421707b524d91c7673256b18ea07639714d7"
+        },
+        "date": 1760383948812,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Word Counter Implementation (Time, s)",
+            "value": 64.45,
             "unit": "s"
           }
         ]
