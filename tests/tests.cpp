@@ -10,6 +10,7 @@
 #include "impl/1_buffered.hpp"
 #include "impl/2_trie.hpp"
 #include "impl/3_mmap.hpp"
+#include "impl/4_robin_map.hpp"
 
 template <typename T>
 class WordCounterTest : public ::testing::Test {
@@ -154,6 +155,7 @@ using Implementations = ::testing::Types<
     naive::NaiveWordCounter,
     buffered::BufferedWordCounter<2>,
     trie::TrieWordCounter<2>,
-    mmap_impl::MmapWordCounter
+    mmap_impl::MmapWordCounter,
+    robin_map::RobinMapWordCounter
 >;
 INSTANTIATE_TYPED_TEST_SUITE_P(MyImplementations, WordCounterTest, Implementations);

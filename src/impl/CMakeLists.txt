@@ -3,3 +3,5 @@ target_link_libraries(word_counter_impl INTERFACE word_counter_interface)
 target_include_directories(word_counter_impl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(word_counter_impl INTERFACE Boost::iostreams)
+add_subdirectory(third-party/robin-map)
+target_link_libraries(word_counter_impl INTERFACE tsl::robin_map)

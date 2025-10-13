@@ -6,8 +6,9 @@
 #include "impl/1_buffered.hpp"
 #include "impl/2_trie.hpp"
 #include "impl/3_mmap.hpp"
+#include "impl/4_robin_map.hpp"
 
-using BenchmarkTarget = mmap_impl::MmapWordCounter;
+using BenchmarkTarget = robin_map::RobinMapWordCounter;
 
 int main(const int argc, char* argv[]) {
     if (argc != 3) {
