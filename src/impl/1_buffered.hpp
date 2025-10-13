@@ -7,7 +7,9 @@
 
 #include "word_counter.hpp"
 
-template <size_t BufferSize = 4096>
+namespace buffered {
+
+template<size_t BufferSize = 4096>
 struct BufferedWordCounter : public IWordCounter {
     void count_words(const std::string &input_filename, const std::string &output_filename) override {
         std::ifstream file(input_filename);
@@ -60,3 +62,5 @@ struct BufferedWordCounter : public IWordCounter {
         }
     }
 };
+
+}

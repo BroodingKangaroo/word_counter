@@ -149,5 +149,8 @@ REGISTER_TYPED_TEST_SUITE_P(WordCounterTest,
                            HandlesCrossBufferWords);
 
 // New implementations should be added here
-using Implementations = ::testing::Types<NaiveWordCounter, BufferedWordCounter<2>, TrieWordCounter<5>>;
+using Implementations = ::testing::Types<
+    naive::NaiveWordCounter,
+    buffered::BufferedWordCounter<2>,
+    trie::TrieWordCounter<2>>;
 INSTANTIATE_TYPED_TEST_SUITE_P(MyImplementations, WordCounterTest, Implementations);

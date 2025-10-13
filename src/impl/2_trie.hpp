@@ -8,44 +8,47 @@
 
 #include "word_counter.hpp"
 
+namespace trie {
 class Trie {
     static constexpr size_t alphabet_size_ = 26;
     static constexpr size_t CHUNK_SIZE = 4096;
+
     struct TrieNode {
         int counter{};
-        std::array<TrieNode*, alphabet_size_> children;
+        std::array<TrieNode *, alphabet_size_> children;
     };
 
-    std::deque<std::vector<TrieNode>> node_pool_;
-    TrieNode* head_;
+    std::deque<std::vector<TrieNode> > node_pool_;
+    TrieNode *head_;
     int number_of_words_{};
+
 public:
     Trie() {
         head_ = get_new_node();
     }
 
-    TrieNode* get_new_node() {
+    TrieNode *get_new_node() {
         if (node_pool_.empty() || node_pool_.back().size() == node_pool_.back().capacity()) {
             node_pool_.emplace_back();
             node_pool_.back().reserve(CHUNK_SIZE);
         }
 
-        std::vector<TrieNode>& current_chunk = node_pool_.back();
+        std::vector<TrieNode> &current_chunk = node_pool_.back();
         current_chunk.emplace_back();
 
         return &current_chunk.back();
     }
 
-    void add_word(const std::string& str) {
+    void add_word(const std::string &str) {
         add_word(str.data(), str.data() + str.size());
     }
 
-    void add_word(const char* begin, const char* end) {
+    void add_word(const char *begin, const char *end) {
         if (begin == end) {
             return;
         }
-        TrieNode* current = head_;
-        for (const char* p = begin; p != end; ++p) {
+        TrieNode *current = head_;
+        for (const char *p = begin; p != end; ++p) {
             const size_t char_index = get_index_from_char(*p);
             if (!current->children[char_index]) {
                 current->children[char_index] = get_new_node();
@@ -58,9 +61,9 @@ public:
         current->counter++;
     }
 
-    std::vector<std::pair<std::string, int>> get_frequencies() const {
+    std::vector<std::pair<std::string, int> > get_frequencies() const {
         std::string word;
-        std::vector<std::pair<std::string, int>> result;
+        std::vector<std::pair<std::string, int> > result;
         result.reserve(number_of_words_);
         get_frequencies(word, result, head_);
         return result;
@@ -98,10 +101,10 @@ inline bool is_english_letter(const char ch) {
     return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
 }
 
-inline void process_buffer(const char* buffer_pointer, const char* const buffer_end,
-                           Trie& trie, std::string& cross_buffer_word) {
+inline void process_buffer(const char *buffer_pointer, const char *const buffer_end,
+                           Trie &trie, std::string &cross_buffer_word) {
     if (!cross_buffer_word.empty()) {
-        const char* word_start = buffer_pointer;
+        const char *word_start = buffer_pointer;
         while (buffer_pointer < buffer_end && is_english_letter(*buffer_pointer)) {
             ++buffer_pointer;
         }
@@ -113,8 +116,8 @@ inline void process_buffer(const char* buffer_pointer, const char* const buffer_
         }
     }
 
-    const char* word_start = nullptr;
-    for (const char* p = buffer_pointer; p < buffer_end; ++p) {
+    const char *word_start = nullptr;
+    for (const char *p = buffer_pointer; p < buffer_end; ++p) {
         if (is_english_letter(*p)) {
             if (!word_start) {
                 word_start = p;
@@ -131,8 +134,7 @@ inline void process_buffer(const char* buffer_pointer, const char* const buffer_
     }
 }
 
-
-template <size_t BufferSize = 4096>
+template<size_t BufferSize = 4096>
 struct TrieWordCounter : public IWordCounter {
     void count_words(const std::string &input_filename, const std::string &output_filename) override {
         std::ifstream file(input_filename);
@@ -172,3 +174,4 @@ struct TrieWordCounter : public IWordCounter {
         }
     }
 };
+}

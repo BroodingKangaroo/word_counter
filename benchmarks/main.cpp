@@ -6,7 +6,7 @@
 #include "impl/1_buffered.hpp"
 #include "impl/2_trie.hpp"
 
-using BenchmarkTarget = TrieWordCounter<>;
+using BenchmarkTarget = trie::TrieWordCounter<>;
 
 int main(const int argc, char* argv[]) {
     if (argc != 3) {
