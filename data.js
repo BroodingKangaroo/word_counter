@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760304974280,
+  "lastUpdate": 1760379398549,
   "repoUrl": "https://github.com/BroodingKangaroo/word_counter",
   "entries": {
     "Word Counter Benchmark (Time)": [
@@ -173,6 +173,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Word Counter Implementation (Time, s)",
             "value": 139.67,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "johngolt33@gmail.com",
+            "name": "BroodingKangaroo",
+            "username": "BroodingKangaroo"
+          },
+          "committer": {
+            "email": "johngolt33@gmail.com",
+            "name": "BroodingKangaroo",
+            "username": "BroodingKangaroo"
+          },
+          "distinct": true,
+          "id": "b755bb80491c04fd0ea9984455852ffc8b88deff",
+          "message": "Mmap: update benchmark workflow to install boost",
+          "timestamp": "2025-10-13T20:40:32+03:00",
+          "tree_id": "cd55cf9f842f324707f2465e05e2dc1d141c1c18",
+          "url": "https://github.com/BroodingKangaroo/word_counter/commit/b755bb80491c04fd0ea9984455852ffc8b88deff"
+        },
+        "date": 1760379398177,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Word Counter Implementation (Time, s)",
+            "value": 119.7,
             "unit": "s"
           }
         ]
