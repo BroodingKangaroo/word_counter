@@ -8,6 +8,20 @@ An interactive performance graph for every push to `main` is available here: htt
 
 ## Building and Running
 
+### Dependencies
+
+The project relies on a few external libraries. Please ensure they are installed before building the project.
+
+```bash
+# linux
+sudo apt-get install libboost-all-dev
+
+# macos (using Homebrew)
+brew install boost
+# additionally, if running on MacOS oneDPL is required
+brew install onedpl
+```
+
 ### Building the Project
 
 The project uses CMake. To build the optimized release version, run the following commands from the project's root directory:
@@ -17,17 +31,16 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-If running on MacOS OneAPI is required:
-```bash
-brew install onedpl
-``` 
-
 ### Running the Benchmark
 A simple benchmark script is provided to test the performance on a small sample file. To run it, navigate to the benchmarks directory and execute the script:
 ```bash
 cd benchmarks
 ./run_benchmark.sh
 ```
+
+Benchmark additionally requires `wget`, `hyperfine` and `jq`.
+
+## Implementations
 
 ### 1. Naive Implementation
 
