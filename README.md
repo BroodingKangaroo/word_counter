@@ -1,7 +1,33 @@
-## Word counter
+# Word counter
 
-Interactive performance graph of every push to main
-https://broodingkangaroo.github.io/word_counter/
+This project explores various C++ implementations for a word frequency counter, progressively optimizing the solution from a naive approach to a parallel implementation.
+
+All implementations can be found in the `src/impl` directory, numbered in order of increasing complexity.
+
+An interactive performance graph for every push to `main` is available here: https://broodingkangaroo.github.io/word_counter/
+
+## Building and Running
+
+### Building the Project
+
+The project uses CMake. To build the optimized release version, run the following commands from the project's root directory:
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+If running on MacOS OneAPI is required:
+```bash
+brew install onedpl
+``` 
+
+### Running the Benchmark
+A simple benchmark script is provided to test the performance on a small sample file. To run it, navigate to the benchmarks directory and execute the script:
+```bash
+cd benchmarks
+./run_benchmark.sh
+```
 
 ### 1. Naive Implementation
 
@@ -21,8 +47,6 @@ Boosts the overall program performance by approximately **2x** compared to the n
 ### 3. Trie-Based Implementation
 
 This version replaces the `std::unordered_map` with a [Trie](https://en.wikipedia.org/wiki/Trie) data structure.
-This approach improves performance on Mac (M4) by approximately **70%** over the Buffered implementation. However, the result doesn't persist across different platforms
-with Ubuntu showing even a slightly worse performance than the Buffered implementation.
 
 - The initial implementation relied on dynamic allocations of each individual TrieNode which killed the performance. To counter it the segmented memory pool was introduced (`std::deque<std::vector<TrieNode>>`). Allocating a giant vector upfront doesn't work because of the potential reallocation and reference invalidation.
 - The expensive character-by-character `std::string` creation (`current_word += ...`) was eliminated. Instead, words are identified by raw pointers (`buffer_pointer`, `buffer_end`) directly within the I/O buffer. This avoids unnecessary heap reallocations. However, this increases the complexity since now cross-buffer words need be correctly processed.
@@ -52,3 +76,5 @@ This version introduces multi-threading to use all available CPU cores.
 -   The memory-mapped file is divided into N chunks, where N is the number of available hardware cores. `std::async` is used to launch N concurrent tasks (in separate threads), with each task being responsible for counting the words in its assigned chunk. The results are aggregated into a final map after the completion of all threads.
 -   The final sorting of unique words is also parallelized. On macOS it falls back to Intel's `oneDPL` since macOS's stl does not support parallel algorithms.
 -   To reduce the number of expensive system calls the output is written to the final file in large chunks.
+-   Experiments with dynamic load distribution showed no performance gains.
+-   Some threads are still doing more work than others, which results in potential stalls while merging maps. Producer-consumer patter with a thread-safe queue can be a solution.
