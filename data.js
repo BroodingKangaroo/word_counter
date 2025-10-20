@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760399315295,
+  "lastUpdate": 1760946039337,
   "repoUrl": "https://github.com/BroodingKangaroo/word_counter",
   "entries": {
     "Word Counter Benchmark (Time)": [
@@ -260,6 +260,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Word Counter Implementation (Time, s)",
             "value": 40.26,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "35418986+BroodingKangaroo@users.noreply.github.com",
+            "name": "Maksim Halavaty",
+            "username": "BroodingKangaroo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "386c9e79d1ed513d1f0d9ea59b2e8c69e9e1a690",
+          "message": "Parallel: use producer-consumer",
+          "timestamp": "2025-10-20T10:19:57+03:00",
+          "tree_id": "ad88a7cc06b7215d10cd8cd8f03f67e64a570a80",
+          "url": "https://github.com/BroodingKangaroo/word_counter/commit/386c9e79d1ed513d1f0d9ea59b2e8c69e9e1a690"
+        },
+        "date": 1760946038953,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Word Counter Implementation (Time, s)",
+            "value": 38.03,
             "unit": "s"
           }
         ]
