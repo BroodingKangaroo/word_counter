@@ -125,18 +125,38 @@ struct ParallelWordCounter : public IWordCounter {
         const char* const end = begin + file.size();
         const unsigned int num_threads = std::thread::hardware_concurrency();
         const size_t chunk_size = file_size / num_threads;
-        std::vector<std::future<word_count_map>> futures;
+        std::vector<std::future<void> > futures;
+        futures.reserve(num_threads);
+        std::vector<word_count_map> partial_counts;
+        partial_counts.reserve(num_threads);
+        std::mutex mtx;
+        std::condition_variable cv;
         for (int i = 0; i < num_threads; ++i) {
-            const char* chunk_start = begin + i * chunk_size;
-            const char* chunk_end = (i == num_threads - 1) ? end : (begin + (i + 1) * chunk_size);
-            futures.push_back(std::async(std::launch::async, count_words_in_chunk, chunk_start, chunk_end, begin, end, i));
+            futures.push_back(std::async(std::launch::async, [&, i]() {
+                const char *chunk_start = begin + i * chunk_size;
+                const char *chunk_end = (i == num_threads - 1) ? end : (begin + (i + 1) * chunk_size);
+                auto result = count_words_in_chunk(chunk_start, chunk_end, begin, end, i);
+                std::lock_guard l(mtx);
+                partial_counts.push_back(std::move(result));
+                cv.notify_one();
+            }));
         }
 
         word_count_map final_counts;
-        for (auto& future : futures) {
-            for (const auto& [word, count] : future.get()) {
+        for (int i = 0; i < num_threads; ++i) {
+            std::unique_lock l(mtx);
+            cv.wait(l, [&]{ return !partial_counts.empty(); });
+
+            auto current_map = std::move(partial_counts.back());
+            partial_counts.pop_back();
+            l.unlock();
+
+            for (const auto &[word, count]: current_map) {
                 final_counts[word] += count;
             }
+        }
+        for (auto &future: futures) {
+            future.get();
         }
 
         file.close();
